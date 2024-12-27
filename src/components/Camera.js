@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faImages, faTimes } from '@fortawesome/free-solid-icons-svg-core';
+import { faCamera, faImages, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Camera.css';
 
 const Camera = ({ onCapture, onClose, onFileSelect }) => {
@@ -92,28 +92,30 @@ const Camera = ({ onCapture, onClose, onFileSelect }) => {
               className="camera-preview"
             />
             <div className="camera-frame" />
+            <div className="camera-controls">
+              <button 
+                className="capture-button" 
+                onClick={handleCapture}
+                disabled={isCapturing}
+              >
+                <FontAwesomeIcon icon={faCamera} />
+              </button>
+            </div>
+            <div className="capture-hint">
+              انقر لالتقاط الصورة
+            </div>
           </div>
         )}
 
-        <div className="camera-controls">
-          <label className="import-button">
-            <FontAwesomeIcon icon={faImages} />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileInput}
-              style={{ display: 'none' }}
-            />
-          </label>
-          
-          <button 
-            className="capture-button" 
-            onClick={handleCapture}
-            disabled={isCapturing}
-          >
-            <FontAwesomeIcon icon={faCamera} />
-          </button>
-        </div>
+        <label className="import-button">
+          <FontAwesomeIcon icon={faImages} />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileInput}
+            style={{ display: 'none' }}
+          />
+        </label>
       </div>
     </>
   );
