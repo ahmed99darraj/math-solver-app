@@ -1,29 +1,13 @@
 .camera-container {
   position: fixed;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 500px;
-  height: auto;
-  aspect-ratio: 3/4;
-  background: #000;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.camera-overlay {
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 999;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
 }
 
 .camera-header {
@@ -34,41 +18,26 @@
 }
 
 .close-button {
-  background: rgba(255, 255, 255, 0.2);
+  background: none;
   border: none;
   color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.close-button:hover {
-  background: rgba(255, 255, 255, 0.3);
+  padding: 0.5rem;
 }
 
 .camera-preview-container {
+  flex: 1;
   position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
   overflow: hidden;
-  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .camera-preview {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -82,91 +51,80 @@
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-}
-
-.camera-frame::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
 }
 
 .camera-controls {
-  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: 2rem;
   background: rgba(0, 0, 0, 0.7);
-  padding-bottom: 1.2rem;
+  backdrop-filter: blur(10px);
 }
 
 .capture-button {
-  width: 38px;
-  height: 38px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: #1976d2;
+  border: 4px solid white;
+  color: white;
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .capture-button:hover {
+  background: #1565c0;
   transform: scale(1.05);
-  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .capture-button:active {
   transform: scale(0.95);
 }
 
-.capture-button svg {
-  font-size: 1.2rem;
-  color: #333;
-}
-
 .import-button {
-  width: 38px;
-  height: 38px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .import-button:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: scale(1.05);
-}
-
-.import-button:active {
-  transform: scale(0.95);
-}
-
-.import-button svg {
-  font-size: 1.2rem;
-  color: white;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .camera-error {
-  color: white;
+  color: #ff4444;
   text-align: center;
   padding: 2rem;
-  background: rgba(255, 0, 0, 0.1);
+  font-size: 1.2rem;
+}
+
+.camera-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 999;
 }
 
 @media (max-width: 500px) {

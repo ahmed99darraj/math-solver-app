@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faImages, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faImages, faTimes } from '@fortawesome/free-solid-icons-svg-core';
 import './Camera.css';
 
 const Camera = ({ onCapture, onClose, onFileSelect }) => {
   const videoRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [error, setError] = useState('');
+  const [isCapturing, setIsCapturing] = useState(false);
 
   useEffect(() => {
     startCamera();
@@ -35,12 +36,12 @@ const Camera = ({ onCapture, onClose, onFileSelect }) => {
   };
 
   const handleCapture = () => {
+    setIsCapturing(true);
     if (videoRef.current) {
       const canvas = document.createElement('canvas');
       const video = videoRef.current;
       const aspectRatio = video.videoWidth / video.videoHeight;
       
-      // حساب أبعاد المنطقة المقصوصة (80% من العرض والارتفاع)
       const cropSize = Math.min(video.videoWidth, video.videoHeight) * 0.8;
       const cropX = (video.videoWidth - cropSize) / 2;
       const cropY = (video.videoHeight - cropSize) / 2;
@@ -51,13 +52,14 @@ const Camera = ({ onCapture, onClose, onFileSelect }) => {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(
         video,
-        cropX, cropY, cropSize, cropSize,  // المنطقة المصدر
-        0, 0, cropSize, cropSize           // المنطقة الهدف
+        cropX, cropY, cropSize, cropSize,
+        0, 0, cropSize, cropSize
       );
 
       canvas.toBlob(blob => {
         const file = new File([blob], 'captured-image.jpg', { type: 'image/jpeg' });
         onCapture(file);
+        setIsCapturing(false);
       }, 'image/jpeg');
     }
   };
@@ -104,7 +106,11 @@ const Camera = ({ onCapture, onClose, onFileSelect }) => {
             />
           </label>
           
-          <button className="capture-button" onClick={handleCapture}>
+          <button 
+            className="capture-button" 
+            onClick={handleCapture}
+            disabled={isCapturing}
+          >
             <FontAwesomeIcon icon={faCamera} />
           </button>
         </div>
