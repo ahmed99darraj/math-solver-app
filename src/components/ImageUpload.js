@@ -163,10 +163,14 @@ const ImageUpload = () => {
           {previewUrl && !loading && (
             <div className="preview-container">
               <img src={previewUrl} alt="Preview" className="preview-image" />
-              <div className="enter-hint">
-                <span>اضغط Enter للحل</span>
+              <button 
+                className="solve-button"
+                onClick={handleSolve}
+                disabled={loading}
+              >
+                <span>حل المسألة</span>
                 <FontAwesomeIcon icon={faArrowRight} />
-              </div>
+              </button>
             </div>
           )}
 
