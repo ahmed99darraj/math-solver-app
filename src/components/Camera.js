@@ -23,7 +23,7 @@ const Camera = ({ onCapture, onClose, onFileSelect }) => {
       const mediaStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           facingMode: 'environment',
-          aspectRatio: { ideal: 1 }
+          aspectRatio: { ideal: 4/3 }
         }
       });
       setStream(mediaStream);
@@ -40,27 +40,28 @@ const Camera = ({ onCapture, onClose, onFileSelect }) => {
     if (videoRef.current) {
       const canvas = document.createElement('canvas');
       const video = videoRef.current;
-      const aspectRatio = video.videoWidth / video.videoHeight;
       
-      const cropSize = Math.min(video.videoWidth, video.videoHeight) * 0.8;
+      // حساب أبعاد المنطقة المقصوصة (90% من العرض والارتفاع)
+      const cropSize = Math.min(video.videoWidth, video.videoHeight) * 0.9;
       const cropX = (video.videoWidth - cropSize) / 2;
       const cropY = (video.videoHeight - cropSize) / 2;
 
+      // تعيين نسبة العرض إلى الارتفاع 3:4
       canvas.width = cropSize;
-      canvas.height = cropSize;
+      canvas.height = (cropSize * 4) / 3;
 
       const ctx = canvas.getContext('2d');
       ctx.drawImage(
         video,
-        cropX, cropY, cropSize, cropSize,
-        0, 0, cropSize, cropSize
+        cropX, cropY, cropSize, (cropSize * 4) / 3,
+        0, 0, canvas.width, canvas.height
       );
 
       canvas.toBlob(blob => {
-        const file = new File([blob], 'captured-image.jpg', { type: 'image/jpeg' });
+        const file = new File([blob], 'captured-image.jpg', { type: 'image/jpeg', quality: 0.9 });
         onCapture(file);
         setIsCapturing(false);
-      }, 'image/jpeg');
+      }, 'image/jpeg', 0.9);
     }
   };
 
